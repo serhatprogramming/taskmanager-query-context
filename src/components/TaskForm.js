@@ -1,9 +1,20 @@
+import { createTask } from "../services/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 const TaskForm = () => {
+  const queryClient = useQueryClient();
+
+  const addTaskMutation = useMutation(createTask, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("tasks");
+    },
+  });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const taskDescription = event.target.taskDescription.value;
     if (taskDescription) {
-      console.log("task: " + taskDescription);
+      addTaskMutation.mutate({ description: taskDescription, urgent: false });
       event.target.taskDescription.value = "";
     }
   };
