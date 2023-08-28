@@ -1,28 +1,20 @@
 import Task from "./Task";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTasks } from "../services/api";
 
 const TaskList = () => {
-  const tasks = [
-    {
-      id: 1,
-      description: "Finish the report",
-      urgent: false,
-    },
-    {
-      id: 2,
-      description: "Buy groceries",
-      urgent: true,
-    },
-    {
-      id: 3,
-      description: "Call John",
-      urgent: true,
-    },
-    {
-      id: 4,
-      description: "Prepare presentation",
-      urgent: false,
-    },
-  ];
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery({ queryKey: ["tasks"], queryFn: fetchTasks });
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Error fetching tasks</p>;
+  }
 
   return (
     <div>
