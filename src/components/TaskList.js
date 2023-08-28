@@ -1,17 +1,27 @@
 import Task from "./Task";
 import { useTasksQuery } from "../hooks/useTasksQuery";
+import { useContext } from "react";
+import FilterContext from "../contexts/FilterContext";
 
 const TaskList = () => {
   const { data: tasks, isLoading, isError } = useTasksQuery();
+  const { filter } = useContext(FilterContext);
 
   if (isLoading) return <p>Loading...</p>;
 
   if (isError) return <p>Error fetching tasks</p>;
 
+  const filteredTasks =
+    filter === "urgent"
+      ? tasks.filter((task) => task.urgent)
+      : filter === "non-urgent"
+      ? tasks.filter((task) => !task.urgent)
+      : tasks;
+
   return (
     <div>
       <h3>Tasks</h3>
-      {tasks.map((task) => (
+      {filteredTasks.map((task) => (
         <Task key={task.id} task={task} />
       ))}
     </div>

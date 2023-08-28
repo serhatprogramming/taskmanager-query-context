@@ -8,7 +8,7 @@
     {
       "id": 2,
       "description": "Buy groceries",
-      "urgent": true
+      "urgent": false
     },
     {
       "id": 3,
@@ -18,11 +18,11 @@
     {
       "id": 4,
       "description": "Prepare presentation",
-      "urgent": false
+      "urgent": true
     },
     {
       "description": "Test Mutations",
-      "urgent": true,
+      "urgent": false,
       "id": 5
     }
   ]

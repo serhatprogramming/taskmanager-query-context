@@ -1,7 +1,12 @@
+import { useContext } from "react";
+import FilterContext from "../contexts/FilterContext";
+
 const TaskFilter = () => {
+  const { dispatch } = useContext(FilterContext);
+
   const handleFilterChange = (event) => {
     const selectedValue = event.target.value;
-    console.log("filter: " + selectedValue);
+    dispatch({ type: "SET_FILTER", filter: selectedValue });
   };
 
   return (
